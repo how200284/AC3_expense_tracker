@@ -4,6 +4,9 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
+// require internal modules
+require('./config/mongoose')
+
 // excute
 const app = express()
 const PORT = process.env.PORT || 3000
