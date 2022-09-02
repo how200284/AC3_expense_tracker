@@ -1,5 +1,6 @@
 // require external node_modules
 const express = require('express')
+const exphbs = require('express-handlebars')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -9,10 +10,12 @@ require('./config/mongoose')
 
 // excute
 const app = express()
+app.engine('hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', 'hbs')
 const PORT = process.env.PORT || 3000
 
 app.get('/', (req, res) => {
-  res.send('It works')
+  res.render('index')
 })
 
 app.listen(PORT, (req, res) => {
