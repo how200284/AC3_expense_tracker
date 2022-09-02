@@ -19,27 +19,15 @@
   <!-- Record Table -->
   <table class="table table-striped mt-5">
     <tbody>
+      {{#each records}}
       <tr>
-        <th class="align-middle" scope="row">Icon 1</th>
-        <td>午餐<br>2022/08/26</td>
-        <td class="align-middle">60</td>
-        <td class="align-middle">修改</td>
-        <td class="align-middle">刪除</td>
+        <th class="align-middle" scope="row"><i class="{{this.categoryId}}"></i></th>
+        <td>{{this.name}}<br>{{this.date}}</td>
+        <td class="align-middle">{{this.amount}}</td>
+        <td class="align-middle"><a href="/records/{{this._id}}/edit" >修改</a></td>
+        <td class="align-middle"><a href="/records/{{this._id}}/delete">刪除</a></td>
       </tr>
-      <tr>
-        <th class="align-middle" scope="row">Icon 2</th>
-        <td>捷運<br>2022/08/26</td>
-        <td>35</td>
-        <td>修改</td>
-        <td>刪除</td>
-      </tr>
-      <tr>
-        <th class="align-middle" scope="row">Icon 3</th>
-        <td>電影<br>2022/08/26</td>
-        <td>300</td>
-        <td>修改</td>
-        <td>刪除</td>
-      </tr>
+      {{/each}}
     </tbody>
   </table>
   <!-- Add Expense Button -->
