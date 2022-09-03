@@ -24,8 +24,8 @@ router.post('/', (req, res) => {
 
   // edit page
 router.get('/:recordId/edit', (req, res) => {
-  const recordId = req.params.recordId
-  return Record.findOne({ recordId })
+  const _id = req.params.recordId
+  return Record.findOne({ _id })
     .lean()
     .then(record => res.render('edit', { record }))
     .catch(err => console.error(err))
@@ -34,8 +34,17 @@ router.get('/:recordId/edit', (req, res) => {
 router.put('/:recordId', (req, res) => {
   const UserId = req.user._id
   const editedInput = req.body
-  const recordId = req.params.recordId
-  return Record.findOneAndUpdate({ UserId }, req.body)
+  const _id = req.params.recordId
+  return Record.findOneAndUpdate({ UserId, _id }, req.body)
+    .then(() => res.redirect('/'))
+    .catch(err => console.error(err))
+})
+
+  // delete button
+router.delete('/:recordId', (req, res) => {
+  const UserId = req.user._id
+  const _id = req.params.recordId
+  return Record.findOneAndDelete({ UserId, _id })
     .then(() => res.redirect('/'))
     .catch(err => console.error(err))
 })

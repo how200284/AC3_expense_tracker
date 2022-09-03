@@ -25,7 +25,11 @@
         <td>{{this.name}}<br>{{this.date}}</td>
         <td class="align-middle">{{this.amount}}</td>
         <td class="align-middle"><a href="/expense/{{this._id}}/edit" >修改</a></td>
-        <td class="align-middle"><a href="/records/{{this._id}}/delete">刪除</a></td>
+        <td class="align-middle">
+          <form action="/expense/{{this._id}}?_method=DELETE" method="POST">
+            <button type="submit">刪除</button>
+          </form>
+        </td>
       </tr>
       {{/each}}
     </tbody>
