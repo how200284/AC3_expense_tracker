@@ -25,24 +25,28 @@ router.get('/register', (req, res) => {
 
 router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
-  User.findOne({ email })
-    .then(user => {
-      if (user) {
-        console.log('This email has been registered.')
-        res.render('register', { name, email, password, confirmPassword })
-      } else {
-        return User.create({ name, email, password })
-          .then(() => res.redirect('/'))
-          .catch(err => console.error(err))
-      }
-    })
-    .catch(err => console.error(err))
+  const errors = []
+  User.findOne({ email }).then(user => {
+    if (user) {
+      errors.push({ message: 'This email has been registered.' })
+      return res.render('register', { name, email, password, confirmPassword })
+    }
+    return User.create({ 
+      name,
+      email,
+      password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null) })
+      .then(() => res.redirect('/'))
+      .catch(err => console.error(err))
+  })
+  .catch(err => console.error(err))
 })
 
   // logout feature
-router.get('/logout', (req, res) => {
-  req.logout()
-  res.redirect('/users/login')
+router.get('/logout', (req, res, next) => {
+  req.logout(err => {
+    if (err) return next(err)
+    res.redirect('/users/login')
+  })
 })
 
 module.exports = router
