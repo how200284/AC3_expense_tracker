@@ -16,4 +16,20 @@ router.get('/register', (req, res) => {
   res.render('register')
 })
 
+router.post('/register', (req, res) => {
+  const { name, email, password, confirmPassword } = req.body
+  User.findOne({ email })
+    .then(user => {
+      if (user) {
+        console.log('This email has been registered.')
+        res.render('register', { name, email, password, confirmPassword })
+      } else {
+        return User.create({ name, email, password })
+          .then(() => res.redirect('/'))
+          .catch(err => console.error(err))
+      }
+    })
+    .catch(err => console.error(err))
+})
+
 module.exports = router
