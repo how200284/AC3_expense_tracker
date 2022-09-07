@@ -38,7 +38,7 @@ router.post('/register', (req, res) => {
     errors.push({ message: 'All fields are required.'})
   }
   if (password !== confirmPassword) {
-    errors.push({ message: 'Passwords and confirmPassword do not match, please enter again.'})
+    errors.push({ message: 'Passwords and confirm Password do not match, please try again.'})
   }
   if (errors.length) {
     return res.render('register', { errors, name, email })
