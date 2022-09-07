@@ -17,27 +17,32 @@ router.get('/new', (req, res) => {
 router.post('/', (req, res) => {
   const userId = req.user._id
   const { name, date, amount, category } = req.body
-  Record.create({ name, date, category, amount, userId })
+  Record.create({ name, date, categoryId: category, amount, userId })
     .then(() => res.redirect('/'))
     .catch(err => console.error(err))
 })
 
   // edit page
-router.get('/:recordId/edit', (req, res) => {
-  const _id = req.params.recordId
-  return Record.findOne({ _id })
-    .lean()
-    .then(record => res.render('edit', { record }))
-    .catch(err => console.error(err))
+router.get('/:recordId/edit', async (req, res) => {
+  try {
+    const _id = req.params.recordId
+    const categories = await Category.find().lean()
+    const record = await Record.findOne({ _id }).lean()
+    res.render('edit', { record, categories })
+  } catch(err) {
+    console.error(err)
+  }
 })
 
-router.put('/:recordId', (req, res) => {
-  const UserId = req.user._id
-  const editedInput = req.body
-  const _id = req.params.recordId
-  return Record.findOneAndUpdate({ UserId, _id }, req.body)
-    .then(() => res.redirect('/'))
-    .catch(err => console.error(err))
+router.put('/:recordId', async (req, res) => {
+  try {
+    const UserId = req.user._id
+    const _id = req.params.recordId
+    await Record.findOneAndUpdate({ UserId, _id }, req.body)
+    res.redirect('/')
+  } catch (err) {
+    console.error(err)
+  } 
 })
 
   // delete button

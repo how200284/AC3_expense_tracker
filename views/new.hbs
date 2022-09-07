@@ -11,7 +11,7 @@
         <label for="name" class="col-form-label">*Name: </label>
       </div>
       <div class="col-auto">
-        <input type="text" id="name" name="name" class="form-control" aria-describedby="expenseName">
+        <input type="text" id="name" name="name" class="form-control" aria-describedby="expenseName" required>
       </div>
       <div class="col-auto">
       </div>
@@ -22,7 +22,7 @@
         <label for="date" class="col-form-label">*Date: </label>
       </div>
       <div class="col-auto">
-        <input type="date" id="date" name="date" class="form-control" aria-describedby="expenseDate">
+        <input type="date" id="date" name="date" class="form-control" aria-describedby="expenseDate" required>
       </div>
       <div class="col-auto">
       </div>
@@ -34,7 +34,7 @@
       </div>
       <div class="col-auto">
         <select class="form-select" name="category" id="category">
-          <option selected>Choose...</option>
+          <option selected disabled hidden>Choose...</option>
           {{#each categories}}
           <option value="{{this._id}}">{{this.name}}</option>
           {{/each}}
@@ -49,7 +49,7 @@
         <label for="amount" class="col-form-label">*Amount: </label>
       </div>
       <div class="col-auto">
-        <input type="number" id="amount" name="amount" class="form-control" aria-describedby="expenseAmount">
+        <input type="number" id="amount" name="amount" class="form-control" aria-describedby="expenseAmount" required>
       </div>
       <div class="col-auto">
       </div>
