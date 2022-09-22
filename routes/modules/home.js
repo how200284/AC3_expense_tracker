@@ -20,14 +20,14 @@ router.get('/', async (req, res) => {
         record.date = dayjs(record.date).format('YYYY-MM-DD')
         totalAmount += record.amount
       })
-      res.render('index', { records, categories, totalAmount })
+      res.render('index', { records, categories, totalAmount, categoryId })
     } else {
       let records = await Record.find({ userId, categoryId }).lean().populate('categoryId') // add populate() for eager loading
       records.forEach(record => {
         record.date = dayjs(record.date).format('YYYY-MM-DD')
         totalAmount += record.amount
       })
-      res.render('index', { records, categories, totalAmount })
+      res.render('index', { records, categories, totalAmount, categoryId })
     }
   } catch(err){ 
     console.error(err)
