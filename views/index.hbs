@@ -22,7 +22,7 @@
     <tbody>
       {{#each records}}
       <tr>
-        <th class="align-middle" scope="row"><i class="{{this.categoryId}}"></i></th>
+        <th class="align-middle" scope="row"><i class="{{this.categoryId.icon}}"></i></th>
         <td>{{this.name}}<br>{{this.date}}</td>
         <td class="align-middle">{{this.amount}}</td>
         <td class="align-middle"><a href="/expense/{{this._id}}/edit" >修改</a></td>
