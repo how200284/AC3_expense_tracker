@@ -1,5 +1,6 @@
 // require Express and Express Router
 const express = require('express')
+const dayjs = require('dayjs')
 const router = express.Router()
 
 // require dynamic data
@@ -10,7 +11,10 @@ router.get('/', (req, res) => {
   const userId = req.user._id
   Record.find({ userId })
     .lean()
-    .then(records => res.render('index', { records }))
+    .then(records => {
+      records.forEach(record => record.date = dayjs(record.date).format('YYYY-MM-DD'))
+      res.render('index', { records })
+    })
     .catch(err => console.error(err))
 })
 
