@@ -6,15 +6,16 @@
       Category
     </button>
     <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Category 1</a></li>
-      <li><a class="dropdown-item" href="#">Category 2</a></li>
-      <li><a class="dropdown-item" href="#">Category 3</a></li>
+      <li><a class="dropdown-item" href="?categoryId= ">所有類別</a></li>
+      {{#each categories}}
+      <li><a class="dropdown-item" href="?categoryId={{this._id}}">{{this.name}}</a></li>
+      {{/each}}
     </ul>
   </div>
   <!-- Total Amonunt Counter -->
   <div class="mt-3 text-center">
     <a>Total Amount: </a>
-    <a>25000</a>
+    <a>{{totalAmount}}</a>
   </div>
   <!-- Record Table -->
   <table class="table table-striped mt-5">
